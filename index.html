@@ -1,0 +1,564 @@
+<html lang="es"><head>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>¿Quieres ser mi San Valentín? 💘</title>
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet">
+
+  
+  <link rel="preload" as="image" href="https://cdn3.emoji.gg/emojis/72953-cat-1.png">
+  <link rel="preload" as="image" href="https://i.pinimg.com/280x280_RS/34/a0/24/34a024abcfe106dfb1475c58a8f14027.jpg">
+  <link rel="preload" as="image" href="https://media1.tenor.com/m/sVPaeSrkl6oAAAAd/cat-sad.gif">
+  <link rel="preload" as="image" href="https://media1.tenor.com/m/Zvw84yJDalwAAAAd/t%E1%BB%A9c-gi%E1%BA%ADn.gif">
+  <link rel="preload" as="image" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6tKlIyClf9CoSRk4T34K7yvYVHUv0pt5aHg&amp;s">
+
+  
+  
+  <link rel="preload" as="audio" href="assets/sound1.mp3">
+  <link rel="preload" as="audio" href="assets/sound2.mp3">
+
+  <style>
+    :root {
+      /* TEMA ROSA SAN VALENTÍN */
+      --aurora-color-1: #ffdde1; 
+      --aurora-color-2: #ee9ca7; 
+      --aurora-color-3: #ffc3a0; 
+      --aurora-color-4: #ffffff; 
+      --aurora-color-5: #ffafbd;
+      
+      --container-bg-start: rgba(255, 255, 255, 0.9); 
+      --container-bg-end: rgba(255, 240, 245, 0.95);
+      --container-shadow: rgba(255, 105, 180, 0.2);
+      
+      --text-primary: #D63384; /* Rosa oscuro */
+      --text-secondary: #8E44AD; /* Morado suave */
+      
+      /* BOTONES (Diseño original conservado) */
+      --btn-yes-start: #ff69b4; --btn-yes-end: #e91e63; --btn-yes-shadow: #c2185b;
+      --btn-no-start: #95a5a6; --btn-no-end: #7f8c8d; --btn-no-shadow: #566566;
+      --glow-color: rgba(255, 105, 180, 0.7);
+    }
+
+    html { height: 100%; }
+    body {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Sour Gummy', cursive;
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100%;
+      height: 100%;
+      text-align: center; 
+      overflow: hidden;
+      background: linear-gradient(-45deg, var(--aurora-color-1), var(--aurora-color-2), var(--aurora-color-3), var(--aurora-color-4), var(--aurora-color-5));
+      background-size: 400% 400%;
+      animation: auroraMovement 10s ease infinite;
+      transition: background 1s ease;
+      
+      /* BLOQUEO DE GESTOS */
+      -webkit-user-select: none; user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      position: fixed; width: 100%;
+    }
+
+    /* MODO FIESTA / NOCHE (Al aceptar) */
+    body.celebrate-mode {
+        background: #000 !important;
+        animation: none;
+    }
+
+    @keyframes auroraMovement {
+      0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
+    }
+    
+    .main-wrapper {
+      display: grid;
+      place-items: center;
+      width: 90%;
+      max-width: 480px;
+      z-index: 10;
+      position: relative;
+    }
+
+    .container {
+      background: linear-gradient(135deg, var(--container-bg-start), var(--container-bg-end));
+      padding: clamp(20px, 5vw, 35px) clamp(25px, 6vw, 45px);
+      border-radius: 30px;
+      box-shadow: 0 15px 40px var(--container-shadow);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+      transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+    }
+
+    .container.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    /* INTRO */
+    #intro-container { cursor: pointer; }
+    .tap-instruction { font-size: 3rem; animation: bounce 2s infinite; }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-20px);}
+      60% {transform: translateY(-10px);}
+    }
+
+    /* CONTENEDOR FINAL (Modo Transparente) */
+    #success-container.transparent-mode {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 0 30px rgba(255, 105, 180, 0.4) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: white;
+        min-width: 280px;
+        max-width: 400px; /* Límite de ancho para que el texto no se estire demasiado */
+    }
+
+    .container img {
+      width: clamp(200px, 60vw, 280px);
+      border-radius: 25px; margin-bottom: 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+    .container img:hover { transform: scale(1.05); }
+
+    h1 { font-size: clamp(1.8em, 5vw, 2.2em); font-weight: 700; color: var(--text-primary); margin-bottom: 15px; }
+    p { font-size: clamp(1.1em, 4vw, 1.3em); color: var(--text-secondary); margin-bottom: 35px; }
+
+/* ESTILOS DEL TEXTO FINAL EN MODO NOCHE */
+    #success-container.transparent-mode #typing-text {
+        color: #ffffff;
+        text-shadow: 0 2px 10px rgba(255, 105, 180, 0.9);
+        font-size: clamp(1.4em, 5vw, 1.8em);
+        min-height: 1.5em;
+        margin-bottom: 15px;
+    }
+    
+    #success-container.transparent-mode #love-message {
+        color: #f0f0f0;
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+        font-size: clamp(0.9em, 3.5vw, 1.1em); 
+        line-height: 1.5;
+        margin-bottom: 20px;
+        
+        /* --- CAMBIO AQUÍ --- */
+        opacity: 1; /* Antes estaba en 0 */
+        /* ------------------- */
+        
+        transition: opacity 1s ease;
+    }
+    /* GIF Final */
+    #final-gif-container {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+    #final-gif {
+        max-width: 100%;
+        width: 180px; /* Tamaño controlado para el gif final */
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-container { display: flex; justify-content: center; gap: clamp(15px, 4vw, 25px); min-height: 70px; }
+
+    .btn {
+      padding: 16px clamp(25px, 6vw, 40px);
+      text-decoration: none; color: white; border-radius: 50px;
+      font-weight: 700; font-size: clamp(1em, 4vw, 1.2em);
+      border: none; cursor: pointer; position: relative;
+      transition: transform 0.2s;
+      transform: scale(1); font-family: 'Poppins', sans-serif;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .btn:active { transform: translateY(2px) scale(0.98); }
+
+    #btn-si {
+      background: linear-gradient(145deg, var(--btn-yes-start), var(--btn-yes-end));
+      box-shadow: 0 6px 0 var(--btn-yes-shadow), 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    #btn-no {
+      background: linear-gradient(145deg, var(--btn-no-start), var(--btn-no-end));
+      box-shadow: 0 6px 0 var(--btn-no-shadow), 0 8px 15px rgba(0,0,0,0.2);
+    }
+    
+    #btn-si.btn-pulse::after {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        border-radius: 50px; background-color: var(--glow-color); z-index: -1;
+        animation: pulseGlow 1.5s infinite;
+    }
+    
+    @keyframes pulseGlow {
+      0% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.4); opacity: 0; } 100% { transform: scale(1); opacity: 0.5; }
+    }
+
+    /* CANVAS DE FUEGOS ARTIFICIALES Y ESTRELLAS */
+    canvas {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none; 
+    }
+    
+    #starCanvas { z-index: 0; display: none; }
+    #fireworksCanvas { z-index: 1; display: none; }
+
+  </style>
+</head>
+<body>
+  
+  
+  <audio id="sound1" src="assets/milo j - deseo perder (interludio)  letra.mp3" loop=""></audio>
+  <audio id="sound2" src="assets/runnin' home to you - grant gustin  español.mp3" loop=""></audio>
+
+  
+  <canvas id="starCanvas"></canvas>
+  <canvas id="fireworksCanvas"></canvas>
+
+  <main class="main-wrapper">
+    
+    
+    <div class="container active" id="intro-container">
+        <h1>Buenas!! tengo algo que decirte 💌</h1>
+        <p>Toca la pantalla</p>
+        <div class="tap-instruction">👆</div>
+    </div>
+
+    
+    <div class="container" id="proposal-container">
+      <img id="image" src="https://cdn3.emoji.gg/emojis/72953-cat-1.png" alt="Gato saltando">
+      <h1 id="main-title">¿Quieres ser mi San Valentín? </h1>
+      <p id="main-text"> ❤️</p>
+      <div class="btn-container">
+        <button class="btn" id="btn-si">Sí 🥰</button>
+        <button class="btn" id="btn-no">No 🙄</button>
+      </div>
+    </div>
+
+    
+    <div class="container" id="success-container">
+      
+      <h2 id="typing-text"></h2>
+      
+      
+      <p id="love-message">
+       Gracias por estar aquí, aun con mis defectos, aun con mis errores, aun con todo. Eres lo mejor que me ha pasado. Sé que has sufrido mucho y que no ayudo demasiado a que olvides todas las cosas malas que has vivido, pero quiero pasar toda mi vida intentando hacerte feliz, que no sientas miedo y que puedas estar segura en mis brazos. Sé que soy muy torpe y muy brusco, pero te amo más que a nada y no quiero perderte nunca.     </p>
+      
+    
+      <div id="final-gif-container">
+          <img id="final-gif" src="https://res.cloudinary.com/dbp9mpyq0/image/upload/v1770773593/WhatsApp_Image_2026-02-10_at_7.33.02_PM_ewxmb8.jpg" alt="Gatos amorosos"> 
+      </div>
+    </div>
+
+  </main>
+
+  
+
+<script>
+(() => {
+  // ====== Helpers ======
+  const $ = (sel) => document.querySelector(sel);
+
+  const intro = $("#intro-container");
+  const proposal = $("#proposal-container");
+  const success = $("#success-container");
+
+  const btnYes = $("#btn-si");
+  const btnNo = $("#btn-no");
+
+  const image = $("#image");
+  const title = $("#main-title");
+  const text = $("#main-text");
+
+  const typingText = $("#typing-text");
+  const loveMessage = $("#love-message");
+
+  const sound1 = $("#sound1"); // música propuesta
+  const sound2 = $("#sound2"); // música éxito
+
+  const starCanvas = $("#starCanvas");
+  const fireworksCanvas = $("#fireworksCanvas");
+
+  // Evitar zoom accidental en iOS (doble tap / pinch)
+  document.addEventListener("gesturestart", (e) => e.preventDefault());
+  document.addEventListener("dblclick", (e) => e.preventDefault());
+
+  // Estado
+  let noClicks = 0;
+  let runningFireworks = false;
+  let starsRunning = false;
+
+  // Inicial: ocultar mensaje hasta terminar typing (si querés)
+  loveMessage.style.opacity = "0";
+
+  // ====== Cambio de pantallas ======
+  function showContainer(elToShow) {
+    [intro, proposal, success].forEach((el) => el.classList.remove("active"));
+    elToShow.classList.add("active");
+  }
+
+  // ====== Audio safe-play (por restricciones del navegador) ======
+  async function safePlay(audioEl, volume = 0.5) {
+    try {
+      audioEl.volume = volume;
+      await audioEl.play();
+    } catch (e) {
+      // Si el navegador bloquea autoplay, no hacemos nada (se desbloquea con interacción)
+      console.warn("Audio bloqueado hasta interacción del usuario.");
+    }
+  }
+
+  function stopAudio(audioEl) {
+    try {
+      audioEl.pause();
+      audioEl.currentTime = 0;
+    } catch {}
+  }
+
+  // ====== Intro tap => propuesta ======
+  intro.addEventListener("click", async () => {
+    showContainer(proposal);
+    await safePlay(sound1, 0.35);
+    // Un toque visual al botón Sí
+    btnYes.classList.add("btn-pulse");
+  });
+
+  // ====== Botón NO evasivo ======
+  function moveNoButton() {
+    const containerRect = proposal.getBoundingClientRect();
+    const btnRect = btnNo.getBoundingClientRect();
+
+    // área segura dentro del contenedor
+    const padding = 12;
+    const minX = containerRect.left + padding;
+    const maxX = containerRect.right - btnRect.width - padding;
+    const minY = containerRect.top + padding + 120; // evita tapar título/imagen
+    const maxY = containerRect.bottom - btnRect.height - padding;
+
+    const x = Math.max(minX, Math.min(maxX, minX + Math.random() * (maxX - minX)));
+    const y = Math.max(minY, Math.min(maxY, minY + Math.random() * (maxY - minY)));
+
+    // position fixed para mover libremente sobre la pantalla
+    btnNo.style.position = "fixed";
+    btnNo.style.left = `${x}px`;
+    btnNo.style.top = `${y}px`;
+  }
+
+  function updateNoReaction() {
+    noClicks++;
+
+    // Cambios opcionales: imagen/texto según cantidad de intentos
+    if (noClicks === 1) {
+      text.textContent = "¿Por que me odias? 😿";
+      image.src = "https://media1.tenor.com/m/sVPaeSrkl6oAAAAd/cat-sad.gif";
+    } else if (noClicks === 2) {
+      text.textContent = "Ve que si me odia TwT ";
+      image.src = "https://i.pinimg.com/280x280_RS/34/a0/24/34a024abcfe106dfb1475c58a8f14027.jpg";
+    } else if (noClicks >= 3) {
+      text.textContent = "¿Por que no ha dicho que sí? TwT";
+      image.src = "https://media1.tenor.com/m/Zvw84yJDalwAAAAd/t%E1%BB%A9c-gi%E1%BA%ADn.gif";
+      btnYes.classList.add("btn-pulse");
+    }
+  }
+
+  // En desktop se escapa con mouseenter; en móvil con touchstart
+  btnNo.addEventListener("mouseenter", () => {
+    updateNoReaction();
+    moveNoButton();
+  });
+
+  btnNo.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    updateNoReaction();
+    moveNoButton();
+  }, { passive: false });
+
+  // ====== Botón SÍ => éxito / modo noche ======
+  btnYes.addEventListener("click", async () => {
+    // detener música 1, iniciar música 2
+    stopAudio(sound1);
+    await safePlay(sound2, 0.35);
+
+    // Modo noche + contenedor transparente
+    document.body.classList.add("celebrate-mode");
+    success.classList.add("transparent-mode");
+
+    showContainer(success);
+
+    // Canvases visibles
+    starCanvas.style.display = "block";
+    fireworksCanvas.style.display = "block";
+
+    // Animaciones
+    startStars();
+    startFireworks();
+
+    // Typing effect
+    typingText.textContent = "";
+    const message = "¡YEIIIII! 💖 ¡Sabía que dirías que sí!";
+    await typeWriter(typingText, message, 45);
+
+    // Mostrar mensaje bonito después de escribir
+    loveMessage.style.opacity = "1";
+  });
+
+  // ====== Typing effect ======
+  function typeWriter(el, str, speed = 40) {
+    return new Promise((resolve) => {
+      let i = 0;
+      const timer = setInterval(() => {
+        el.textContent += str[i];
+        i++;
+        if (i >= str.length) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  // ====== Canvas: Stars ======
+  function fitCanvas(c) {
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    c.width = Math.floor(window.innerWidth * dpr);
+    c.height = Math.floor(window.innerHeight * dpr);
+    const ctx = c.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return ctx;
+  }
+
+  let starCtx, stars = [];
+  function initStars() {
+    starCtx = fitCanvas(starCanvas);
+    stars = Array.from({ length: 120 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 1.6 + 0.2,
+      a: Math.random() * 0.8 + 0.2,
+      tw: Math.random() * 0.02 + 0.005
+    }));
+  }
+
+  function startStars() {
+    if (starsRunning) return;
+    starsRunning = true;
+    initStars();
+
+    const loop = () => {
+      if (!starsRunning) return;
+
+      starCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      starCtx.fillStyle = "rgba(255,255,255,0.9)";
+
+      for (const s of stars) {
+        s.a += s.tw * (Math.random() > 0.5 ? 1 : -1);
+        s.a = Math.max(0.15, Math.min(1, s.a));
+
+        starCtx.globalAlpha = s.a;
+        starCtx.beginPath();
+        starCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        starCtx.fill();
+      }
+      starCtx.globalAlpha = 1;
+
+      requestAnimationFrame(loop);
+    };
+
+    requestAnimationFrame(loop);
+  }
+
+  // ====== Canvas: Fireworks ======
+  let fwCtx, particles = [];
+  function initFireworks() {
+    fwCtx = fitCanvas(fireworksCanvas);
+    particles = [];
+  }
+
+  function spawnFirework() {
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * (window.innerHeight * 0.5);
+    const count = 60 + Math.floor(Math.random() * 30);
+
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2) * (i / count);
+      const speed = 1.5 + Math.random() * 3.5;
+      particles.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 60 + Math.random() * 30,
+        maxLife: 90,
+        // colores "random" sin definir paleta fija (queda bonito)
+        hue: Math.floor(Math.random() * 360),
+        size: 1 + Math.random() * 2
+      });
+    }
+  }
+
+  function startFireworks() {
+    if (runningFireworks) return;
+    runningFireworks = true;
+    initFireworks();
+
+    // lanzar fuegos cada X ms
+    const interval = setInterval(() => {
+      if (!runningFireworks) return clearInterval(interval);
+      spawnFirework();
+    }, 700);
+
+    const loop = () => {
+      if (!runningFireworks) return;
+
+      fwCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // un "fade" suave
+      fwCtx.fillStyle = "rgba(0,0,0,0.15)";
+      fwCtx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.03; // gravedad suave
+        p.vx *= 0.985;
+        p.vy *= 0.985;
+        p.life -= 1;
+
+        const alpha = Math.max(0, p.life / p.maxLife);
+        fwCtx.globalAlpha = alpha;
+        fwCtx.fillStyle = `hsl(${p.hue} 100% 70%)`;
+        fwCtx.beginPath();
+        fwCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        fwCtx.fill();
+
+        if (p.life <= 0) particles.splice(i, 1);
+      }
+      fwCtx.globalAlpha = 1;
+
+      requestAnimationFrame(loop);
+    };
+
+    requestAnimationFrame(loop);
+  }
+
+  // ====== Resize ======
+  window.addEventListener("resize", () => {
+    if (starsRunning) initStars();
+    if (runningFireworks) initFireworks();
+  });
+
+})();
+</script>
+
+
+</body></html>
